@@ -1,0 +1,26 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Вход</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center mt-5">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" class="form-floating">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Войти</button>
+                <a class="btn btn-lg btn-block btn-outline-primary" href="javascript:history.back()">Назад</a>
+            </form>
+        </div>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock %}

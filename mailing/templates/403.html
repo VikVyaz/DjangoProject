@@ -1,0 +1,25 @@
+{% extends 'main_page/main_page.html' %}
+
+{% block title %}Нет доступа{% endblock %}
+
+{% block content %}
+<div class="row text-center mt-5">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <h2>Нет доступа</h2>
+        <p>
+            <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+               href="{% url 'mailing:main_page' %}">
+                Вернуться на главную
+            </a>
+        </p>
+        <p>
+            <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+               href="javascript:history.back()">
+                Вернуться на предыдущую страницу
+            </a>
+        </p>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock %}

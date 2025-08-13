@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -132,8 +133,8 @@ EMAIL_HOST_USER = config('YANDEX_EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('YANDEX_EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-LOGIN_REDIRECT_URL = 'mailing:home'
-LOGOUT_REDIRECT_URL = 'mailing:home'
+LOGIN_REDIRECT_URL = 'mailing:main_page'
+LOGOUT_REDIRECT_URL = 'mailing:main_page'
 LOGIN_URL = 'users:login'
 
 CACHE_ENABLE = config('CACHE_ENABLE', cast=bool)

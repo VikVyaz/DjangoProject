@@ -1,0 +1,62 @@
+{% extends 'broadcasts/base.html' %}
+
+{% block title %}
+Карточка рассылки
+{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Карточка рассылки №{{ broadcast.id }}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4 text-center">
+        <ul class="list-group text-center">
+            <li class="list-group-item"><strong>Статус:</strong> {{ broadcast.get_status_display }}</li>
+            <li class="list-group-item"><strong>Сообщение:</strong> {{ broadcast.message }}</li>
+            <li class="list-group-item"><strong>Получатели:</strong>
+                {% for rec in broadcast.recipient.all %}
+                <a href="{% url 'mailing:recipient_detail' rec.pk %}">{{ rec.email }}</a>
+                {% if not forloop.last %}<a> ,</a>{% endif %}
+                {% endfor %}
+            </li>
+            <li class="list-group-item"><strong>Запущена впервые:</strong> {{ broadcast.first_send|date:'H:m, d M Y' }}
+            </li>
+            <li class="list-group-item"><strong>Запущена в последний раз</strong>: {{ broadcast.last_send|date:'H:m, d M
+                Y' }}
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'mailing:broadcast_update' broadcast.pk %}">
+                    <button type="button" class="btn btn-secondary">Редактировать</button>
+                </a>
+            </li>
+            {% if user.has_perm 'mailing.broadcast_shutdown' %}
+            <li class="list-group-item">
+                <form method="post" action="{% url 'mailing:broadcast_start' broadcast.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Начать рассылку</button>
+                </form>
+            </li>
+            {% endif %}
+            <li class="list-group-item">
+                <form method="post" action="{% url 'mailing:broadcast_start' broadcast.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Начать рассылку</button>
+                </form>
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'mailing:broadcast_delete' broadcast.pk %}">
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </a>
+            </li>
+        </ul>
+        <a href="{% url 'mailing:broadcast_list' %}">
+            <button type="button" class="mt-2 btn btn-primary">Обратно к списку</button>
+        </a>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock %}

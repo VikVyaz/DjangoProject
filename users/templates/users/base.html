@@ -1,0 +1,9 @@
+{% extends 'main_page/main_page.html' %}
+
+{% block main_page_active %}
+<a class="p-2 btn btn-outline-primary" href="{% url 'mailing:main_page' %}">Главная страница</a>
+{% endblock %}
+
+{% block users_active %}
+<a class="p-2 btn btn-outline-primary active" href="{% url 'users:user_list' %}">Пользователи</a>
+{% endblock %}

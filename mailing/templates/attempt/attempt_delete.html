@@ -1,0 +1,25 @@
+{% extends 'attempt/base.html' %}
+
+{% block title %}
+Удаление попытки рассылки
+{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Удалить попытку рассылки №{{ attempt.id }}?</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4 text-center">
+        <form method="POST">
+            {% csrf_token %}
+            <p>Точно удалить попытку рассылки №{{ attempt.id }}?</p>
+            <button type="submit" class="btn btn-primary">Удалить</button>
+        </form>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock %}

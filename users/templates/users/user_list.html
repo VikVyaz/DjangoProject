@@ -1,0 +1,60 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+Список пользователей
+{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Список пользователей</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center mt-5">
+    {% if users %}
+    {% for u in users %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">
+                    Никнейм: {{ u.username }}
+                </h4>
+            </div>
+            <div class="card-body">
+                {% if u.avatar %}
+                <h6 class="card-title pricing-card-title">
+                    <img class="img-thumbnail" src="{{ u.avatar.url }}">
+                </h6>
+                {% else %}
+                <h6 class="card-title pricing-card-title">
+                    Аватар отсутствует
+                </h6>
+                {% endif %}
+                <h6 class="card-title pricing-card-title">
+                    Email: {{ u.email }}
+                </h6>
+                <h6 class="card-title pricing-card-title">
+                    Номер телефона: {{ u.phone_number|default:'Нет данных' }}
+                </h6>
+                <h6 class="card-title pricing-card-title">
+                    Страна: {{ u.country|default:'Нет данных' }}
+                </h6>
+                {% if user != u %}
+                <form method="post" action="{% url 'users:user_ban' u.pk %}">
+                    {% csrf_token %}
+                    {% if u.is_active %}
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Заблокировать</button>
+                    {% else %}
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Разблокировать</button>
+                    {% endif %}
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h2>Список пуст</h2>
+    {% endif %}
+    {% endblock %}

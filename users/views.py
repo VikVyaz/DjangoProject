@@ -38,7 +38,6 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('mailing:main_page')
 
     def form_valid(self, form):
-        form.instance.owner = self.request.user
         cache.clear()
         return super().form_valid(form)
 
@@ -55,7 +54,6 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('mailing:main_page')
 
     def form_valid(self, form):
-        form.instance.owner = self.request.user
         cache.clear()
         return super().form_valid(form)
 

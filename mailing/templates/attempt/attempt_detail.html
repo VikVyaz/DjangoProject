@@ -1,0 +1,43 @@
+{% extends 'attempt/base.html' %}
+
+{% block title %}
+Карточка попытки рассылки
+{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Карточка попытки рассылки №{{ attempt.id }}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4 text-center">
+        <ul class="list-group text-center">
+            <li class="list-group-item {% if attempt.status == 'success' %} text-success {% else %} text-danger {% endif %}">
+                <strong>Статус:</strong> {{ attempt.get_status_display }}
+            </li>
+            <li class="list-group-item">
+                <strong>Время и дата попытки:</strong> {{ attempt.attempt_date_time|date:'H:m, d M Y' }}
+            </li>
+            <li class="list-group-item">
+                <strong>Ответ почтового сервера:</strong> {{ attempt.response }}
+            </li>
+            <li class="list-group-item">
+                <strong>Рассылка</strong>:
+                <a href="{% url 'mailing:broadcast_detail' attempt.broadcast.pk %}">{{ attempt.broadcast }}</a>
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'mailing:attempt_delete' attempt.pk %}">
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </a>
+            </li>
+        </ul>
+        <a href="{% url 'mailing:attempt_list' %}">
+            <button type="button" class="mt-2 btn btn-primary">Обратно к списку</button>
+        </a>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock %}

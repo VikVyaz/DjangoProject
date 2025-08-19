@@ -1,0 +1,45 @@
+{% extends 'attempt/base.html' %}
+
+{% block title %}
+Попытки рассылок
+{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Попытки рассылок</h1>
+    <h6 class="display-8">Успешные попытки рассылки: {{ success_attempt }}</h6>
+    <h6 class="display-8">Не успешные попытки рассылки: {{ fail_attempt }}</h6>
+    <h6 class="display-8">Всего попыток рассылок: {{ all_attempt }}</h6>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center mt-5">
+    {% if attempts %}
+    {% for att in attempts %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal {% if att.status == 'success' %} text-success {% else %} text-danger {% endif %}">
+                    Статус: {{ att.get_status_display }}
+                </h4>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title pricing-card-title">
+                    Дата попытки: {{ att.attempt_date_time|date:'H:m, d M Y' }}
+                </h6>
+                {% if att.status == 'fail' %}
+                <h6 class="card-title pricing-card-title">Ответ почтового сервера: {{ att.response }}</h6>
+                {% endif %}
+                <a href="{% url 'mailing:attempt_detail' att.pk %}">
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Детали</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h2>Список пуст</h2>
+    {% endif %}
+</div>
+{% endblock %}

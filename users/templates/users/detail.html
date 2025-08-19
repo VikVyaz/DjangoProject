@@ -1,0 +1,41 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Детали профиля{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Детали профиля {{ user.username }}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center mt-5">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <ul class="list-group text-center">
+            {% if user.avatar %}
+            <li class="list-group-item"><img class="img-thumbnail" src="{{ user.avatar.url }}"></li>
+            {% else %}
+            <li class="list-group-item">Аватар отсутствует</li>
+            {% endif %}
+            <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+            <li class="list-group-item"><strong>Никнейм:</strong> {{ user.username }}</li>
+            <li class="list-group-item">
+                <strong>Номер телефона</strong>: {{ user.phone_number|default:'Данные отсутствуют' }}
+            </li>
+            <li class="list-group-item">
+                <strong>Страна</strong>: {{ user.get_country_display|default:'Данные отсутствуют' }}
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'users:update' user.pk %}">
+                    <button type="button" class="btn btn-secondary">Редактировать</button>
+                </a>
+            </li>
+            <a href="javascript:history.back()">
+                <button type="button" class="mt-2 btn btn-primary">Назад</button>
+            </a>
+        </ul>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'messages/base.html' %}
+
+{% block title %}
+Сообщения рассылок
+{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Сообщения рассылки</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <a href="{% url 'mailing:message_create' %}">
+            <button type="button" class="btn btn-primary">Добавить сообщение</button>
+        </a>
+    </div>
+    <div class="col-4"></div>
+</div>
+
+<div class="row text-center mt-5">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ message.subject }}</h4>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title pricing-card-title">Сообщение: {{ message.body|truncatechars:40 }}</h6>
+                <a href="{% url 'mailing:message_detail' message.pk %}">
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Детали</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h2>Список пуст</h2>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'recipients/base.html' %}
+
+{% block title %}
+Карточка получателя
+{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Карточка получателя</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <ul class="list-group text-center">
+            <li class="list-group-item"><strong>Email:</strong> {{ recipient.email }}</li>
+            <li class="list-group-item"><strong>Имя:</strong> {{ first_name }}</li>
+            <li class="list-group-item"><strong>Фамилия:</strong> {{ last_name }}</li>
+            {% if patronymic %}
+            <li class="list-group-item"><strong>Отчество:</strong> {{ patronymic }}</li>
+            {% endif %}
+            <li class="list-group-item"><strong>Комментарий</strong>: {{ recipient.comment|default:'Нет комментария' }}
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'mailing:recipient_update' recipient.pk %}">
+                    <button type="button" class="btn btn-secondary">Редактировать</button>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'mailing:recipient_delete' recipient.pk %}">
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </a>
+            </li>
+            <a href="{% url 'mailing:recipient_list' %}">
+                <button type="button" class="mt-2 btn btn-primary">Обратно к списку</button>
+            </a>
+        </ul>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock %}

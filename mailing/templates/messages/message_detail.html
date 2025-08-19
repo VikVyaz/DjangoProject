@@ -1,0 +1,37 @@
+{% extends 'messages/base.html' %}
+
+{% block title %}
+Карточка сообщение
+{% endblock %}
+
+{% block content_header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Карточка сообщения</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <ul class="list-group text-center">
+            <li class="list-group-item"><strong>Тема сообщения:</strong> {{ message.subject }}</li>
+            <li class="list-group-item"><strong>Тело сообщения:</strong> {{ message.body }}</li>
+            <li class="list-group-item">
+                <a href="{% url 'mailing:message_update' message.pk %}">
+                    <button type="button" class="btn btn-secondary">Редактировать</button>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="{% url 'mailing:message_delete' message.pk %}">
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </a>
+            </li>
+            <a href="{% url 'mailing:message_list' %}">
+                <button type="button" class="mt-2 btn btn-primary">Обратно к сообщениям</button>
+            </a>
+        </ul>
+    </div>
+    <div class="col-4"></div>
+</div>
+{% endblock %}

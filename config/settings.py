@@ -15,7 +15,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -68,9 +68,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config('NAME'),
-        "USER": config('USER'),
-        "PASSWORD": config('PASSWORD'),
+        "NAME": config('POSTGRES_DB'),
+        "USER": config('POSTGRES_USER'),
+        "PASSWORD": config('POSTGRES_PASSWORD'),
         "HOST": config('HOST'),
         "PORT": config('PORT'),
     }
@@ -113,6 +113,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

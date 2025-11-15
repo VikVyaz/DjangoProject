@@ -38,6 +38,7 @@ tzdata = "2025.2"
 wcwidth = "0.2.13"
 flake8 = "^7.3.0"
 pillow = "^11.3.0"
+unicorn = "^2.1.4"
 
 
 [build-system]

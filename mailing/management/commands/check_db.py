@@ -7,8 +7,8 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 dbname = config('POSTGRES_DB')
 user = config('POSTGRES_USER')
 password = config('POSTGRES_PASSWORD')
-host = config('HOST')
-port = config('PORT')
+host = config('POSTGRES_HOST')
+port = config('POSTGRES_PORT')
 
 
 class Command(BaseCommand):

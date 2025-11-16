@@ -1,10 +1,10 @@
+import os
 from pathlib import Path
 
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -16,7 +16,6 @@ SECRET_KEY = config('SECRET_KEY', default='test_secret')
 DEBUG = config('DEBUG', cast=bool, default=False)
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -61,20 +60,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config('POSTGRES_DB', default='test'),
-        "USER": config('POSTGRES_USER', default='test'),
-        "PASSWORD": config('POSTGRES_PASSWORD', default='test'),
-        "HOST": config('POSTGRES_HOST', default='localhost'),
-        "PORT": config('POSTGRES_PORT', default='5432'),
+if os.environ.get("GITHUB_ACTIONS") == "true":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": config('POSTGRES_DB', default='test'),
+            "USER": config('POSTGRES_USER', default='test'),
+            "PASSWORD": config('POSTGRES_PASSWORD', default='test'),
+            "HOST": config('POSTGRES_HOST', default='localhost'),
+            "PORT": config('POSTGRES_PORT', default='5432'),
+        }
+    }
 
 CSRF_TRUSTED_ORIGINS = [
     'http://158.160.201.223',
@@ -99,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -110,7 +115,6 @@ TIME_ZONE = "Europe/Moscow"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/

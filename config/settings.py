@@ -131,7 +131,7 @@ AUTH_USER_MODEL = 'users.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('YANDEX_EMAIL_HOST', default='test')
-EMAIL_PORT = config('YANDEX_EMAIL_PORT', cast=int, default='test')
+EMAIL_PORT = config('YANDEX_EMAIL_PORT', cast=int, default=465)
 EMAIL_USE_TLS = config('YANDEX_EMAIL_USE_TLS', cast=bool, default=False)
 EMAIL_USE_SSL = config('YANDEX_EMAIL_USE_SSL', cast=bool, default=True)
 EMAIL_HOST_USER = config('YANDEX_EMAIL_HOST_USER', default='test')

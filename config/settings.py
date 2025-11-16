@@ -10,10 +10,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', default='test_secret')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast=bool)
+DEBUG = config('DEBUG', cast=bool, default=False)
 
 ALLOWED_HOSTS = ['*']
 
@@ -68,10 +68,10 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config('POSTGRES_DB'),
-        "USER": config('POSTGRES_USER'),
-        "PASSWORD": config('POSTGRES_PASSWORD'),
-        "HOST": config('POSTGRES_HOST'),
+        "NAME": config('POSTGRES_DB', default='test'),
+        "USER": config('POSTGRES_USER', default='test'),
+        "PASSWORD": config('POSTGRES_PASSWORD', default='test'),
+        "HOST": config('POSTGRES_HOST', default='localhost'),
         "PORT": config('POSTGRES_PORT', default='5432'),
     }
 }
@@ -130,23 +130,23 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = 'users.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('YANDEX_EMAIL_HOST')
-EMAIL_PORT = config('YANDEX_EMAIL_PORT', cast=int)
-EMAIL_USE_TLS = config('YANDEX_EMAIL_USE_TLS', cast=bool)
-EMAIL_USE_SSL = config('YANDEX_EMAIL_USE_SSL', cast=bool)
-EMAIL_HOST_USER = config('YANDEX_EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('YANDEX_EMAIL_HOST_PASSWORD')
+EMAIL_HOST = config('YANDEX_EMAIL_HOST', default='test')
+EMAIL_PORT = config('YANDEX_EMAIL_PORT', cast=int, default='test')
+EMAIL_USE_TLS = config('YANDEX_EMAIL_USE_TLS', cast=bool, default=False)
+EMAIL_USE_SSL = config('YANDEX_EMAIL_USE_SSL', cast=bool, default=True)
+EMAIL_HOST_USER = config('YANDEX_EMAIL_HOST_USER', default='test')
+EMAIL_HOST_PASSWORD = config('YANDEX_EMAIL_HOST_PASSWORD', default='test')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 LOGIN_REDIRECT_URL = 'mailing:main_page'
 LOGOUT_REDIRECT_URL = 'mailing:main_page'
 LOGIN_URL = 'users:login'
 
-CACHE_ENABLE = config('CACHE_ENABLE', cast=bool)
+CACHE_ENABLE = config('CACHE_ENABLE', cast=bool, default=False)
 if CACHE_ENABLE:
     CACHES = {
         'default': {
-            "BACKEND": config('CACHE_BACKEND'),
-            "LOCATION": config('CACHE_LOCATION'),
+            "BACKEND": config('CACHE_BACKEND', default='test'),
+            "LOCATION": config('CACHE_LOCATION', default='test'),
         }
     }

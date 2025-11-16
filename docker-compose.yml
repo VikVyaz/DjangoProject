@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfiles/web/Dockerfile
+    image: django_project:1.0
     command: >
       sh -c "python manage.py migrate &&
              python manage.py collectstatic --noinput &&
